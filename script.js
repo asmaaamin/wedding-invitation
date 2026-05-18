@@ -2,6 +2,7 @@
   const scene = document.getElementById("envelopeScene");
   const waxSeal = document.getElementById("waxSeal");
   const invitation = document.getElementById("invitation");
+  const topHinge = document.getElementById("topHinge");
 
   if (!scene || !waxSeal || !invitation) return;
 
@@ -11,15 +12,13 @@
     if (isOpen) return;
     isOpen = true;
 
-    scene.classList.add("is-opening");
     waxSeal.disabled = true;
-
     scene.classList.add("is-open");
     invitation.setAttribute("aria-hidden", "false");
 
-    setTimeout(function () {
-      scene.classList.remove("is-opening");
-    }, 600);
+    if (topHinge) {
+      topHinge.setAttribute("aria-hidden", "false");
+    }
   }
 
   waxSeal.addEventListener("click", openEnvelope);

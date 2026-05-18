@@ -13,8 +13,11 @@
   --font-script: "Great Vibes", cursive;
   --envelope-w: min(92vw, 420px);
   --envelope-h: calc(var(--envelope-w) * 1.35);
-  --ease-open: cubic-bezier(0.4, 0, 0.15, 1);
-  --duration-open: 1.1s;
+  --ease-open: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-lift: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-open: 1.35s;
+  --duration-seal: 0.45s;
+  --delay-flap: 0.3s;
 }
 
 *,
@@ -54,8 +57,8 @@ body {
   position: relative;
   width: var(--envelope-w);
   height: var(--envelope-h);
-  perspective: 1400px;
-  perspective-origin: 50% 40%;
+  perspective: 1600px;
+  perspective-origin: 50% 28%;
 }
 
 .envelope {
@@ -133,15 +136,28 @@ body {
   box-shadow: inset 0 -2px 6px rgba(61, 52, 41, 0.04);
 }
 
-.envelope__flap--top {
+/* Top hinge — rotates upward from the top edge */
+.envelope__top-hinge {
+  position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
   height: 54%;
+  z-index: 5;
+  transform-style: preserve-3d;
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.envelope__flap--top {
+  position: absolute;
+  inset: 0;
+  height: 100%;
   background: linear-gradient(to bottom, #faf6ef, var(--cream));
   background-image: var(--paper-texture), linear-gradient(to bottom, #faf6ef, var(--cream));
   clip-path: polygon(0 0, 50% 100%, 100% 0);
-  z-index: 5;
-  transform-origin: 50% 0;
-  transition: transform var(--duration-open) var(--ease-open);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   box-shadow:
     0 4px 12px rgba(61, 52, 41, 0.08),
     inset 0 2px 4px rgba(255, 255, 255, 0.5);
@@ -190,7 +206,7 @@ body {
 .wax-seal {
   position: absolute;
   left: 50%;
-  top: 50%;
+  bottom: 0;
   z-index: 10;
   width: clamp(72px, 22vw, 96px);
   height: clamp(72px, 22vw, 96px);
@@ -209,7 +225,7 @@ body {
     0 8px 20px rgba(92, 21, 34, 0.25),
     inset 0 2px 6px rgba(255, 200, 200, 0.15),
     inset 0 -4px 8px rgba(0, 0, 0, 0.2);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   cursor: pointer;
   transition:
     transform 0.35s ease,
@@ -239,7 +255,7 @@ body {
 }
 
 .wax-seal:hover {
-  transform: translate(-50%, -50%) scale(1.04);
+  transform: translate(-50%, 50%) scale(1.04);
   box-shadow:
     0 4px 8px rgba(92, 21, 34, 0.45),
     0 12px 28px rgba(92, 21, 34, 0.3),
@@ -248,7 +264,7 @@ body {
 }
 
 .wax-seal:active {
-  transform: translate(-50%, -50%) scale(0.97);
+  transform: translate(-50%, 50%) scale(0.97);
 }
 
 .wax-seal__shine {
@@ -295,17 +311,17 @@ body {
 .invitation {
   position: absolute;
   left: 50%;
-  top: 8%;
+  top: 10%;
   z-index: 3;
   width: 88%;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transform: translateX(-50%) translateY(20px) scale(0.96);
+  transform: translateX(-50%) translateY(42%) scale(0.94);
   transition:
-    max-height 0s linear var(--duration-open),
-    opacity 0.6s ease calc(var(--duration-open) * 0.35),
-    transform 0.9s var(--ease-open) calc(var(--duration-open) * 0.25);
+    max-height 0s linear calc(var(--delay-flap) + var(--duration-open)),
+    opacity 0.7s var(--ease-open) calc(var(--delay-flap) + var(--duration-open) * 0.45),
+    transform var(--duration-open) var(--ease-open) calc(var(--delay-flap) + var(--duration-open) * 0.35);
   pointer-events: none;
 }
 
@@ -404,15 +420,31 @@ body {
 }
 
 /* ── Opened state ────────────────────────────────────────────── */
+.envelope-scene.is-open .envelope__top-hinge {
+  animation: flap-lift-up var(--duration-open) var(--ease-lift) var(--delay-flap) forwards;
+}
+
+@keyframes flap-lift-up {
+  0% {
+    transform: rotateX(0deg) translateY(0);
+  }
+  12% {
+    transform: rotateX(-12deg) translateY(-6px);
+  }
+  100% {
+    transform: rotateX(-168deg) translateY(-18px);
+  }
+}
+
 .envelope-scene.is-open .envelope__flap--top {
-  transform: rotateX(-175deg);
-  box-shadow: 0 -2px 8px rgba(61, 52, 41, 0.06);
+  box-shadow:
+    0 -6px 16px rgba(61, 52, 41, 0.1),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
 }
 
 .envelope-scene.is-open .wax-seal {
-  opacity: 0;
+  animation: seal-break var(--duration-seal) ease forwards;
   pointer-events: none;
-  transform: translate(-50%, -50%) scale(0.6);
 }
 
 .envelope-scene.is-open .wax-seal::before {
@@ -422,7 +454,7 @@ body {
 .envelope-scene.is-open .invitation {
   max-height: 600px;
   opacity: 1;
-  transform: translateX(-50%) translateY(-4%) scale(1);
+  transform: translateX(-50%) translateY(-12%) scale(1);
   pointer-events: auto;
 }
 
@@ -433,22 +465,20 @@ body {
 
 .envelope-scene.is-open .envelope__flap--bottom {
   opacity: 0.6;
-  transition: opacity 0.6s ease 0.4s;
-}
-
-.envelope-scene.is-opening .wax-seal {
-  animation: seal-break 0.5s ease forwards;
+  transition: opacity 0.6s ease calc(var(--delay-flap) + 0.5s);
 }
 
 @keyframes seal-break {
   0% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, 50%) scale(1);
+    opacity: 1;
   }
-  40% {
-    transform: translate(-50%, -50%) scale(1.08);
+  35% {
+    transform: translate(-50%, 50%) scale(1.1);
+    opacity: 1;
   }
   100% {
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, 50%) scale(0.4);
     opacity: 0;
   }
 }
@@ -463,7 +493,8 @@ body {
     animation: none;
   }
 
-  .envelope-scene.is-opening .wax-seal {
+  .envelope-scene.is-open .envelope__top-hinge {
     animation: none;
+    transform: rotateX(-168deg) translateY(-18px);
   }
 }
