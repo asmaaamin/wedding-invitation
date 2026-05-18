@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sarah & James — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <div class="envelope-scene" id="envelopeScene">
+      <div class="envelope" id="envelope" aria-label="Wedding envelope">
+        <article class="invitation" id="invitation" aria-hidden="true">
+          <div class="invitation__inner">
+            <p class="invitation__eyebrow">Together with their families</p>
+            <h1 class="invitation__names">Sarah <span>&</span> James</h1>
+            <p class="invitation__tagline">request the pleasure of your company<br />at their wedding celebration</p>
+            <div class="invitation__divider" aria-hidden="true"></div>
+            <p class="invitation__date">Saturday, the 14th of June, 2026</p>
+            <p class="invitation__time">at half past four in the afternoon</p>
+            <p class="invitation__venue">The Garden Estate<br />124 Willow Lane, Charleston</p>
+            <p class="invitation__rsvp">Kindly respond by May 1st</p>
+          </div>
+        </article>
+
+        <div class="envelope__body">
+          <div class="envelope__paper envelope__paper--back"></div>
+
+          <div class="envelope__flap envelope__flap--bottom" aria-hidden="true">
+            <svg class="envelope__emboss" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true">
+              <use href="#floral-emboss" />
+            </svg>
+          </div>
+
+          <div class="envelope__flap envelope__flap--top" id="topFlap" aria-hidden="true">
+            <svg class="envelope__emboss envelope__emboss--top" viewBox="0 0 200 140" preserveAspectRatio="none" aria-hidden="true">
+              <use href="#floral-emboss" />
+            </svg>
+          </div>
+
+          <div class="envelope__flap envelope__flap--left" aria-hidden="true"></div>
+          <div class="envelope__flap envelope__flap--right" aria-hidden="true"></div>
+
+          <button
+            type="button"
+            class="wax-seal"
+            id="waxSeal"
+            aria-label="Open wedding invitation"
+          >
+            <span class="wax-seal__shine" aria-hidden="true"></span>
+            <svg class="wax-seal__rose" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="28" class="wax-seal__rim" />
+              <path class="wax-seal__flower" d="M32 18c-2 6-8 10-8 16 0 5 4 9 8 9s8-4 8-9c0-6-6-10-8-16z" />
+              <path class="wax-seal__stem" d="M32 43v8" />
+              <path class="wax-seal__leaf" d="M28 46c-4 2-6 5-6 5s3-1 6-4" />
+              <path class="wax-seal__leaf" d="M36 46c4 2 6 5 6 5s-3-1-6-4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <p class="hint" id="hint">Tap the seal to open</p>
+    </div>
+  </main>
+
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="floral-emboss" viewBox="0 0 200 140">
+        <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35">
+          <path d="M40 90 Q50 60 70 55 Q90 50 95 70 Q100 90 75 95 Q50 100 40 90" />
+          <path d="M70 55 L68 40 M70 55 L82 48" />
+          <circle cx="72" cy="52" r="3" />
+          <path d="M120 85 Q130 55 150 50 Q170 45 175 65 Q180 85 155 90 Q130 95 120 85" />
+          <path d="M150 50 L148 35 M150 50 L162 43" />
+          <circle cx="152" cy="47" r="3" />
+          <path d="M95 100 Q100 75 115 70 Q130 65 128 82" />
+          <path d="M60 110 Q80 95 100 98 Q120 101 140 110" />
+          <path d="M30 70 Q45 50 65 45 M165 70 Q150 50 130 45" />
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="script.js"></script>
+</body>
+</html>
