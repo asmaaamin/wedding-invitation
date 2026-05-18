@@ -35,30 +35,32 @@
             </svg>
           </div>
 
-          <div class="envelope__flap envelope__flap--top" id="topFlap" aria-hidden="true">
-            <svg class="envelope__emboss envelope__emboss--top" viewBox="0 0 200 140" preserveAspectRatio="none" aria-hidden="true">
-              <use href="#floral-emboss" />
-            </svg>
+          <div class="envelope__top-hinge" id="topHinge" aria-hidden="true">
+            <div class="envelope__flap envelope__flap--top" id="topFlap">
+              <svg class="envelope__emboss envelope__emboss--top" viewBox="0 0 200 140" preserveAspectRatio="none" aria-hidden="true">
+                <use href="#floral-emboss" />
+              </svg>
+            </div>
+
+            <button
+              type="button"
+              class="wax-seal"
+              id="waxSeal"
+              aria-label="Open wedding invitation"
+            >
+              <span class="wax-seal__shine" aria-hidden="true"></span>
+              <svg class="wax-seal__rose" viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="32" r="28" class="wax-seal__rim" />
+                <path class="wax-seal__flower" d="M32 18c-2 6-8 10-8 16 0 5 4 9 8 9s8-4 8-9c0-6-6-10-8-16z" />
+                <path class="wax-seal__stem" d="M32 43v8" />
+                <path class="wax-seal__leaf" d="M28 46c-4 2-6 5-6 5s3-1 6-4" />
+                <path class="wax-seal__leaf" d="M36 46c4 2 6 5 6 5s-3-1-6-4" />
+              </svg>
+            </button>
           </div>
 
           <div class="envelope__flap envelope__flap--left" aria-hidden="true"></div>
           <div class="envelope__flap envelope__flap--right" aria-hidden="true"></div>
-
-          <button
-            type="button"
-            class="wax-seal"
-            id="waxSeal"
-            aria-label="Open wedding invitation"
-          >
-            <span class="wax-seal__shine" aria-hidden="true"></span>
-            <svg class="wax-seal__rose" viewBox="0 0 64 64" aria-hidden="true">
-              <circle cx="32" cy="32" r="28" class="wax-seal__rim" />
-              <path class="wax-seal__flower" d="M32 18c-2 6-8 10-8 16 0 5 4 9 8 9s8-4 8-9c0-6-6-10-8-16z" />
-              <path class="wax-seal__stem" d="M32 43v8" />
-              <path class="wax-seal__leaf" d="M28 46c-4 2-6 5-6 5s3-1 6-4" />
-              <path class="wax-seal__leaf" d="M36 46c4 2 6 5 6 5s-3-1-6-4" />
-            </svg>
-          </button>
         </div>
       </div>
 
